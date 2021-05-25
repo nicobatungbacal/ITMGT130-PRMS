@@ -10,7 +10,7 @@ import logging
 
 app = Flask(__name__)
 
-app.secret_key = b's@g@d@c0ff33!'
+app.secret_key = b'w0w0w333111!'
 
 logging.basicConfig(level=logging.DEBUG)
 app.logger.setLevel(logging.INFO)
