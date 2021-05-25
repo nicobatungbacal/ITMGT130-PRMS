@@ -16,13 +16,16 @@ logging.basicConfig(level=logging.DEBUG)
 app.logger.setLevel(logging.INFO)
 
 @app.route('/')
-def index():
+def login():
     return render_template('login.html')
+
+@app.route('/tryagain')
+def tryagain():
+    return render_template('tryagain.html')
 
 @app.route('/home')
 def home():
     return render_template('home.html')
-
 
 @app.route('/services')
 def services():
@@ -36,10 +39,6 @@ def booking():
 def doctor():
     return 'Doctors Page. Place Doctors Page contents here.'
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    return render_template('login.html')
-
 @app.route('/auth', methods = ['GET', 'POST'])
 def auth():
     username = request.form.get('username')
@@ -51,7 +50,7 @@ def auth():
         session["user"] = user
         return redirect('/home')
     else:
-        return redirect('/login')
+        return redirect('/tryagain')
 
 @app.route('/logout')
 def logout():
