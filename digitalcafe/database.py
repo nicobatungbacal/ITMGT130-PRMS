@@ -27,13 +27,36 @@ def get_products():
 
     return product_list
 
+def get_order(code):
+    orders_coll = order_management_db["orders"]
+
+    order = orders_coll.find_one({"code":code},{"_id":0})
+
+    return order
+
+def get_orders():
+    order_list = []
+
+    orders_coll = order_management_db["orders"]
+
+    for p in orders_coll.find({}):
+        order_list.append(p)
+
+    return order_list
+
 def create_order(order):
     orders_coll = order_management_db['orders']
     orders_coll.insert(order)
 
-def change_password(old_password,new_password):
+def get_password(username):
+    customer_coll = order_management_db["customers"]
+    password_dict = customer_coll.find_one({"username":username},{"password":1})
+    password = password_dict['password']
+    return password
+
+def change_password(username,new_pass):
     customers_coll = order_management_db['customers']
-    customers_coll.update_one({"password":old_password},{"$set":{"password":new_password}})
+    customers_coll.update_one({"username":username},{"$set":{"password":new_pass}})
 
 def get_branch(code):
     branches_coll = products_db["branches"]

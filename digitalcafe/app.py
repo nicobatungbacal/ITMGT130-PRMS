@@ -28,6 +28,11 @@ def products():
     product_list = db.get_products()
     return render_template('products.html', page="Products", product_list=product_list)
 
+@app.route('/orders')
+def orders():
+    order_list = db.get_orders()
+    return render_template('viewpastorders.html', page="View Past Orders", order_list=order_list)
+
 @app.route('/productdetails')
 def productdetails():
     code = request.args.get('code', '')
@@ -64,29 +69,23 @@ def changepassword():
     return render_template('changepassword.html')
 
 @app.route('/change', methods=['GET', 'POST'])
-def chngpass():
+def change():
     username = request.form.get('username')
     old_pass = request.form.get('old_password')
     new_pass = request.form.get('new_password')
     new_pass2 = request.form.get('new_password2')
 
-    is_successful, user = authentication.login(username, old_pass)
-    app.logger.info('%s', is_successful)
-    if(is_successful):
+    check_old_pass = db.get_password(username)
+
+    if check_old_pass == old_pass:
         if new_pass == new_pass2:
-            session["user"] = user
-            return redirect('/confirmpassword')
+            db.change_password(username,new_pass)
+            session.pop("user",None)
+            return redirect('/login')
         else:
             return redirect('/changepassword')
     else:
         return redirect('/changepassword')
-
-@app.route('/confirmpassword')
-def confirmpassword():
-    # log out of session once confirmed password
-    om.change_pass()
-    session.pop("user",None)
-    return redirect('/login')
 
 @app.route('/auth', methods = ['GET', 'POST'])
 def auth():
