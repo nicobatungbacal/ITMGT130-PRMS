@@ -8,12 +8,8 @@
     </style>
   </header>
   <body>
-    <a href='/'>Home</a> | <a href='/doctors'>Products</a> |
-        <a href='/services'>Branches</a> | <a href='/aboutus'>About Us</a> |
-        {% if session["user"] is defined %}
-        Welcome, {{ session["user"]["first_name"] }}.
+    <a href='/home'>Home</a> | <a href='/doctors'>Doctors</a> |
+        <a href='/services'>Available Services</a> | <a href='/booking'>Book an Appointment</a> |
+        Welcome, {{ session["user"]["firstname"] }}.
         <a href='/logout'>Logout</a>
-        {% else %}
-        <a href='/login'>Login</a>
-        {% endif %}
         <p/>
