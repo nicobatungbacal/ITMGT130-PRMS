@@ -37,7 +37,7 @@ def booking():
 
 @app.route('/doctors')
 def doctor():
-    return 'Doctors Page. Place Doctors Page contents here.'
+    return render_template('doctors.html')
 
 @app.route('/auth', methods = ['GET', 'POST'])
 def auth():
