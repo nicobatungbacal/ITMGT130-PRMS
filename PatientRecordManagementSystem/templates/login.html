@@ -1,23 +1,18 @@
+{% include "header.html" %}
+<div style = "position:relative; left:685px; top:210px">
 <h1>Login</h1>
-<header>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <style>
-    .footer {
-      font-size:10px;
-    }
-  </style>
-</header>
+</div>
 <form action="/auth" method="POST">
-   <div>
-     Username or email address
+   <div style = "position:relative; left:630px; top:210px;">
+     Username:
+   <br><input type="text" name="username"></input>
    </div>
-   <input type="text" name="username"></input>
-   <div>
-     Password
+   <div style = "position:relative; left:630px; top:220px;">
+     Password:
+   <br><input type="password" name="password"></input>
    </div>
-   <input type="password" name="password"></input>
-   <div>
+   <div style = "position:relative; left:699px; top:235px;">
    <input type="submit" value="Login"/>
    </div>
 </form>
+{% include "footer.html" %}
