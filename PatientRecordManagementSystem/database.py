@@ -9,13 +9,14 @@ def get_user(username):
     patient=patients_coll.find_one({"username":username})
     return patient
 
-doctors =
-    {10 : {"firstname":"Ernesto","lastname":"Celdran","Specialty":"X-Ray","start_time":ISODate("2021-05-31T10:00:00.000Z"),"end_time":ISODate("2021-05-31T17:00:00.000Z")}}
-    {20 : {"firstname":"Maria","lastname":"Hechanova","Specialty":"Blood Chemistry","start_time":ISODate("2021-05-31T8:00:00.000Z"),"end_time":ISODate("2021-05-31T13:00:00.000Z")}}
-    {30 : {"firstname":"Salvador","lastname":"Perez","Specialty":"CT Scan","start_time":ISODate("2021-05-31T11:00:00.000Z"),"end_time":ISODate("2021-05-31T19:00:00.000Z")}}
-    {40 : {"firstname":"Teresa","lastname":"Galvez","Specialty":"Ultrasound","start_time":ISODate("2021-05-31T7:00:00.000Z"),"end_time":ISODate("2021-05-31T13:00:00.000Z")}}
-    {40 : {"firstname":"Teresa","lastname":"Galvez","Specialty":"Pulmonology","start_time":ISODate("2021-05-31T9:00:00.000Z"),"end_time":ISODate("2021-05-31T18:00:00.000Z")}}
-    {40 : {"firstname":"Teresa","lastname":"Galvez","Specialty":"Molecular Diagnostics","start_time":ISODate("2021-05-31T12:00:00.000Z"),"end_time":ISODate("2021-05-31T15:00:00.000Z")}}
+doctors = {
+    10 : {"firstname":"Ernesto","lastname":"Celdran","specialty":"X-Ray","start_time":10,"end_time":17},
+    20 : {"firstname":"Maria","lastname":"Hechanova","specialty":"Blood Tests","start_time":8,"end_time":13},
+    30 : {"firstname":"Salvador","lastname":"Perez","specialty":"CT Scan","start_time":11,"end_time":19},
+    40 : {"firstname":"Teresa","lastname":"Galvez","specialty":"Ultrasound","start_time":7,"end_time":13},
+    50 : {"firstname":"Timothy","lastname":"Recto","specialty":"Pulmonology","start_time":9,"end_time":18},
+    60 : {"firstname":"Wilfredo","lastname":"Ongpin","specialty":"Molecular","start_time":12,"end_time":13}
+    }
 
 def get_doctor(code):
     return doctors[code]
@@ -25,4 +26,6 @@ def get_doctors():
 
     for i,v in doctors.items():
         doctor = v
-        prod
+        doctor.setdefault("code",i)
+        doctor_list.append(doctor)
+    return doctor_list
