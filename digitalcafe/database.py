@@ -60,10 +60,9 @@ def change_password(username,new_pass):
 
 def get_branch(code):
     branches_coll = products_db["branches"]
+    branch_dict = branches_coll.find_one({"code":str(code)},{"name":1})
 
-    branch = branches_coll.find_one({"code":code},{"_id":0})
-
-    return branch
+    return branch_dict
 
 def get_branches():
     branch_list = []

@@ -48,7 +48,7 @@ def branches():
 @app.route('/branchdetails')
 def branchdetails():
     code = request.args.get('code', '')
-    branch = db.get_branch(int(code))
+    branch = db.get_branch(code)
 
     return render_template('branchdetails.html', code=code, branch=branch)
 
