@@ -30,11 +30,10 @@ def get_products():
 def get_orders(username):
     orders_list = []
     orders_coll = order_management_db["orders"]
-    orders_summary = orders_coll.find_one({"username":username})
-    orders_details = orders_summary["details"]
-
-    for info in orders_details:
-        orders_list.append(info)
+    orders_summary = orders_coll.find({"username":username},{"details":1})
+    for u in orders_summary:
+        for v in u["details"]:
+            orders_list.append(v)
 
     return orders_list
 

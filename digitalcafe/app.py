@@ -30,8 +30,8 @@ def products():
 
 @app.route('/orders')
 def orders():
-
-    order_list = db.get_orders("joben@example.com")
+    username = session["user"]["username"]
+    order_list = db.get_orders(username)
 
     return render_template('viewpastorders.html', page="View Past Orders", order_list=order_list)
 
@@ -133,10 +133,10 @@ def addtocart():
 def changeqty():
     cart = session["cart"]
     code = request.form.get('code')
-    qty = int(request.form.get("qty"))
+    qty = request.form.get("qty")
 
     cart[code]["qty"] = qty
-    cart [code]["subtotal"] = qty * product["price"]
+    cart[code]["subtotal"] = qty * product["price"]
     session["cart"] = cart
 
     return redirect('/cart')
