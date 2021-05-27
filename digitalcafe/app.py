@@ -30,7 +30,9 @@ def products():
 
 @app.route('/orders')
 def orders():
-    order_list = db.get_orders()
+
+    order_list = db.get_orders("joben@example.com")
+
     return render_template('viewpastorders.html', page="View Past Orders", order_list=order_list)
 
 @app.route('/productdetails')
@@ -125,6 +127,18 @@ def addtocart():
     cart = session["cart"]
     cart[code]=item
     session["cart"]=cart
+    return redirect('/cart')
+
+@app.route('/changeqty', methods = ['POST'])
+def changeqty():
+    cart = session["cart"]
+    code = request.form.get('code')
+    qty = int(request.form.get("qty"))
+
+    cart[code]["qty"] = qty
+    cart [code]["subtotal"] = qty * product["price"]
+    session["cart"] = cart
+
     return redirect('/cart')
 
 @app.route('/cart')

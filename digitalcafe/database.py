@@ -27,22 +27,16 @@ def get_products():
 
     return product_list
 
-def get_order(code):
+def get_orders(username):
+    orders_list = []
     orders_coll = order_management_db["orders"]
+    orders_summary = orders_coll.find_one({"username":username})
+    orders_details = orders_summary["details"]
 
-    order = orders_coll.find_one({"code":code},{"_id":0})
+    for info in orders_details:
+        orders_list.append(info)
 
-    return order
-
-def get_orders():
-    order_list = []
-
-    orders_coll = order_management_db["orders"]
-
-    for p in orders_coll.find({}):
-        order_list.append(p)
-
-    return order_list
+    return orders_list
 
 def create_order(order):
     orders_coll = order_management_db['orders']
