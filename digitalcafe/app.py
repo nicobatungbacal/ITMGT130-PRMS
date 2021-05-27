@@ -114,12 +114,14 @@ def addtocart():
     code = request.args.get('code', '')
     product = db.get_product(int(code))
     item=dict()
+
     # A click to add a product translates to a
     # quantity of 1 for now
 
     item["qty"] = 1
     item["name"] = product["name"]
     item["subtotal"] = product["price"]*item["qty"]
+    item["code"] = code
 
     if(session.get("cart") is None):
         session["cart"]={}
@@ -133,11 +135,19 @@ def addtocart():
 def changeqty():
     cart = session["cart"]
     code = request.form.get('code')
-    qty = request.form.get("qty")
+    qty = int(request.form.get("qty"))
+    
+    product = db.get_product(int(code))
 
-    cart[code]["qty"] = qty
-    cart[code]["subtotal"] = qty * product["price"]
-    session["cart"] = cart
+    if qty == 0:
+        del cart[code]
+    else:
+        cart[code]["qty"] = qty
+        cart[code]["subtotal"] = qty * product["price"]
+        session["cart"] = cart
+    
+    session['cart'] = cart
+    
 
     return redirect('/cart')
 
