@@ -29,3 +29,9 @@ def get_doctors():
         doctor.setdefault("code",i)
         doctor_list.append(doctor)
     return doctor_list
+
+def get_hours():
+    for i,v in doctors:
+        doctor = v
+        doctor_hours = list(range(doctor["start_time"],doctor["end_time"]))
+    return doctor_hours

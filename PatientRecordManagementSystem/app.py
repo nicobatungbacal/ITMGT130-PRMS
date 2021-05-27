@@ -29,11 +29,11 @@ def home():
 
 @app.route('/services')
 def services():
-    return 'Services Page. Place Services Page contents here.'
+    return render_template('availableservices.html')
 
 @app.route('/booking')
 def booking():
-    return 'Appointment Booking Page. Place Booking Page contents here.'
+    return render_template('booking.html')
 
 @app.route('/doctors')
 def doctor():
